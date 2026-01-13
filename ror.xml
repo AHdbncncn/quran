@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+<channel>
+  <title>ROR Sitemap for https://ahdbncncn.github.io/quran/</title>
+  <link>https://ahdbncncn.github.io/quran/</link>
+
+<item>
+     <link>https://ahdbncncn.github.io/quran/</link>
+     <title>القرآن الكريم - المصحف الإلكتروني المتكامل</title>
+     <description>مصحف إلكتروني متكامل مع بحث متقدم في القرآن الكريم، عرض السور والآيات مع نظام فلترة متطور</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>0</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+</channel>
+</rss>
+  
