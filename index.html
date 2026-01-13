@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>القرآن الكريم - المصحف الإلكتروني المتكامل</title>
+    <meta name="description" content="مصحف إلكتروني متكامل مع بحث متقدم في القرآن الكريم، عرض السور والآيات مع نظام فلترة متطور">
+    <meta name="keywords" content="القرآن الكريم, مصحف, قرآن, آيات, سور, إسلام, دين, الله, محمد">
+    <meta name="author" content="أحمد عمار العمري">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="القرآن الكريم - المصحف الإلكتروني المتكامل">
+    <meta property="og:description" content="مصحف إلكتروني متكامل مع بحث متقدم والتنقل بين السور">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1a472a; /* أخضر إسلامي داكن */
+            --primary-light: #2d6a4f;
+            --secondary-color: #d4af37; /* ذهبي */
+            --secondary-light: #e6c86e;
+            --light-color: #f8f5f0; /* بيج فاتح */
+            --accent-color: #2c5aa0; /* أزرق إسلامي */
+            --accent-light: #4a7bc8;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --text-color: #2c3e50;
+            --text-light: #5d6d7e;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f5f0 0%, #f0efe9 100%);
+            color: var(--text-color);
+            line-height: 1.7;
+            min-height: 100vh;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #0d351f);
+            color: white;
+            padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background-color: rgba(26, 71, 42, 0.95);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Amiri', serif;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+        
+        /* Navigation */
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn.active {
+            background: var(--secondary-color);
+            color: #333;
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 160px);
+        }
+        
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Home Page */
+        .home-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        
+        .home-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Amiri', serif;
+        }
+        
+        .home-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Advanced Search Section */
+        .search-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.2rem 1.2rem 4rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: #fafafa;
+            font-family: inherit;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+            background: white;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.3rem;
+        }
+        
+        .search-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            flex: 1;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .filter-select {
+            padding: 0.7rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .search-options {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+        
+        .search-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .clear-btn {
+            padding: 0.7rem 1.5rem;
+            background: #f8f9fa;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .clear-btn:hover {
+            background: #e9ecef;
+            border-color: var(--text-light);
+        }
+        
+        .search-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stats-value {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .search-results-info {
+            background: linear-gradient(135deg, var(--accent-light), var(--accent-color));
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Surah Grid */
+        .surah-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .surah-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .surah-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--secondary-color);
+        }
+        
+        .surah-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .surah-content {
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .surah-name {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Amiri', serif;
+        }
+        
+        .surah-transliteration {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .surah-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .surah-type {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .type-meccan {
+            background: rgba(212, 175, 55, 0.15);
+            color: #b8941f;
+        }
+        
+        .type-medinan {
+            background: rgba(44, 90, 160, 0.15);
+            color: var(--accent-color);
+        }
+        
+        /* Search Results */
+        .search-results-container {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .result-header {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .result-count {
+            background: white;
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .verse-result {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        .verse-result:hover {
+            background: #fafafa;
+        }
+        
+        .verse-result:last-child {
+            border-bottom: none;
+        }
+        
+        .verse-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .verse-result-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .verse-number {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .verse-reference {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .verse-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .verse-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-light);
+        }
+        
+        .verse-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .verse-text {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            text-align: justify;
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            background-color: rgba(212, 175, 55, 0.3);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .surah-result {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        .surah-result:hover {
+            background: #fafafa;
+        }
+        
+        .surah-result:last-child {
+            border-bottom: none;
+        }
+        
+        .surah-result-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .surah-result-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .surah-result-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .surah-result-name {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-family: 'Amiri', serif;
+        }
+        
+        .surah-result-details {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .no-results-icon {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+        
+        .no-results-title {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        .no-results-text {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* Loading State */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(26, 71, 42, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a472a, #0d351f);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .designer {
+            color: var(--secondary-light);
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .surah-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .search-controls {
+                flex-direction: column;
+            }
+            
+            .search-options {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .surah-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1rem;
+            }
+            
+            .surah-content {
+                padding: 1.5rem;
+            }
+            
+            .verse-text {
+                font-size: 1.6rem;
+                line-height: 2;
+            }
+            
+            .search-filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .surah-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-section {
+                padding: 1.5rem;
+            }
+            
+            .verse-text {
+                font-size: 1.4rem;
+                line-height: 1.8;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .surah-result-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+        
+        /* Utility Classes */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#home" class="logo" id="home-link">
+                <span class="logo-icon">﷽</span>
+                <div class="logo-text">
+                    <h1 class="logo-title">القرآن الكريم</h1>
+                    <p class="logo-subtitle">مصحف إلكتروني متكامل</p>
+                </div>
+            </a>
+            
+            <div class="nav-controls">
+                <button class="nav-btn active" id="home-btn">
+                    <span>🏠</span>
+                    <span>الصفحة الرئيسية</span>
+                </button>
+                <button class="nav-btn" id="bookmark-btn">
+                    <span>🔖</span>
+                    <span>العلامات المرجعية</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <div class="home-header">
+                <h2 class="home-title">مصحف القرآن الكريم</h2>
+                <p class="home-subtitle">تصفح القرآن الكريم كاملًا مع إمكانية البحث والوصول السريع لكل سورة وآية</p>
+            </div>
+
+            <!-- Advanced Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" 
+                           placeholder="ابحث في القرآن الكريم (اكتب كلمة أو جملة للبحث)...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="search-controls">
+                    <div class="search-filters">
+                        <div class="filter-group">
+                            <label class="filter-label">نوع البحث:</label>
+                            <select id="search-type" class="filter-select">
+                                <option value="all">الكل (سور وآيات)</option>
+                                <option value="surah">السور فقط</option>
+                                <option value="verse">الآيات فقط</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">نوع السورة:</label>
+                            <select id="surah-type" class="filter-select">
+                                <option value="all">جميع الأنواع</option>
+                                <option value="meccan">المكية</option>
+                                <option value="medinan">المدنية</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">ترتيب النتائج:</label>
+                            <select id="sort-order" class="filter-select">
+                                <option value="relevance">الأكثر تطابقًا</option>
+                                <option value="surah-asc">ترتيب السور (تصاعدي)</option>
+                                <option value="surah-desc">ترتيب السور (تنازلي)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="search-options">
+                        <button id="search-btn" class="search-btn">
+                            <span>🔍</span>
+                            <span>بحث</span>
+                        </button>
+                        <button id="clear-btn" class="clear-btn">مسح البحث</button>
+                    </div>
+                </div>
+                
+                <div class="search-stats">
+                    <div class="stats-item">
+                        <span>إجمالي السور:</span>
+                        <span id="total-surahs" class="stats-value">0</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>إجمالي الآيات:</span>
+                        <span id="total-verses" class="stats-value">0</span>
+                    </div>
+                    <div id="search-results-info" class="search-results-info" style="display: none;">
+                        <span id="results-count">0</span> نتيجة
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Results Container -->
+            <div id="search-results-container" style="display: none;">
+                <!-- سيتم عرض نتائج البحث هنا -->
+            </div>
+
+            <!-- Surah Grid -->
+            <div id="surah-grid-container">
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <p>جاري تحميل القرآن الكريم...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Surah Detail Page -->
+        <div id="surah-page" class="page">
+            <!-- سوف يتم تحميل محتوى السورة هنا ديناميكيًا -->
+        </div>
+
+        <!-- Bookmarks Page -->
+        <div id="bookmarks-page" class="page">
+            <div class="home-header">
+                <h2 class="home-title">العلامات المرجعية</h2>
+                <p class="home-subtitle">الآيات والسور التي قمت بتحديدها</p>
+            </div>
+            
+            <div id="bookmarks-container" class="no-results">
+                <div class="no-results-icon">🔖</div>
+                <h3 class="no-results-title">لا توجد علامات مرجعية</h3>
+                <p class="no-results-text">قم بإضافة آيات إلى العلامات المرجعية عن طريق النقر على زر الإشارة المرجعية بجانب الآية</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">﷽</div>
+            <p class="copyright">© <span id="current-year">2024</span> تم تصميم الموقع بواسطة <span class="designer">أحمد عمار العمري</span></p>
+            <p>القرآن الكريم - المصحف الإلكتروني المتكامل</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // بيانات التطبيق
+        let quranData = [];
+        let filteredSurahs = [];
+        let searchResults = [];
+        let bookmarks = JSON.parse(localStorage.getItem('quranBookmarks')) || [];
+        let currentSearchTerm = '';
+        let currentSearchType = 'all';
+        let currentSurahType = 'all';
+        let currentSortOrder = 'relevance';
+
+        // عناصر DOM
+        const pages = {
+            home: document.getElementById('home-page'),
+            surah: document.getElementById('surah-page'),
+            bookmarks: document.getElementById('bookmarks-page')
+        };
+        
+        const navButtons = {
+            home: document.getElementById('home-btn'),
+            bookmarks: document.getElementById('bookmark-btn')
+        };
+        
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const searchTypeSelect = document.getElementById('search-type');
+        const surahTypeSelect = document.getElementById('surah-type');
+        const sortOrderSelect = document.getElementById('sort-order');
+        const surahGridContainer = document.getElementById('surah-grid-container');
+        const searchResultsContainer = document.getElementById('search-results-container');
+        const resultsCount = document.getElementById('results-count');
+        const searchResultsInfo = document.getElementById('search-results-info');
+        const totalVersesEl = document.getElementById('total-verses');
+        const totalSurahsEl = document.getElementById('total-surahs');
+        const currentYearEl = document.getElementById('current-year');
+
+        // ---------- دوال البحث المحسنة ----------
+        const TASHKEEL = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
+        const ARABIC_DIACRITICS = /[ًٌٍَُِّْـ]/g;
+
+        function normalizeArabic(str) {
+            if (!str) return '';
+            return str.replace(TASHKEEL, '')
+                .replace(ARABIC_DIACRITICS, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function highlightText(text, query) {
+            if (!query || !text) return text;
+
+            const normQ = normalizeArabic(query);
+            if (!normQ) return text;
+
+            const normText = normalizeArabic(text);
+            const idx = normText.indexOf(normQ);
+
+            if (idx === -1) return text;
+
+            // البحث عن موضع التطابق في النص الأصلي
+            let pointerNorm = 0, pointerOrig = 0;
+            let startOrig = -1, endOrig = -1;
+
+            while (pointerOrig < text.length && pointerNorm <= idx + normQ.length) {
+                const chOrig = text[pointerOrig];
+                const chNorm = normalizeArabic(chOrig);
+                if (chNorm.length === 0) {
+                    pointerOrig++;
+                    continue;
+                }
+
+                if (pointerNorm === idx) startOrig = pointerOrig;
+                pointerNorm += chNorm.length;
+
+                if (pointerNorm >= idx + normQ.length) {
+                    endOrig = pointerOrig + 1;
+                    break;
+                }
+                pointerOrig++;
+            }
+
+            if (startOrig === -1 || endOrig === -1) return text;
+
+            const before = text.slice(0, startOrig);
+            const matched = text.slice(startOrig, endOrig);
+            const after = text.slice(endOrig);
+
+            return before + '<span class="highlight">' + matched + '</span>' + after;
+        }
+
+        function performAdvancedSearch(searchTerm) {
+            const searchTermNorm = normalizeArabic(searchTerm);
+            if (!searchTermNorm) return [];
+
+            const results = [];
+
+            quranData.forEach(surah => {
+                // تطبيق فلتر نوع السورة
+                if (currentSurahType !== 'all' && surah.type !== currentSurahType) {
+                    return;
+                }
+
+                // البحث في معلومات السورة (مع تجاهل التشكيل)
+                const surahMatches = [];
+
+                // البحث في اسم السورة مع تطبيع
+                if (normalizeArabic(surah.name).includes(searchTermNorm) ||
+                    normalizeArabic(surah.transliteration).toLowerCase().includes(searchTermNorm.toLowerCase())) {
+                    surahMatches.push({
+                        type: 'surah-name',
+                        score: 10,
+                        text: surah.name
+                    });
+                }
+
+                // البحث في رقم السورة
+                if (surah.id.toString().includes(searchTerm)) {
+                    surahMatches.push({
+                        type: 'surah-number',
+                        score: 9,
+                        text: surah.id.toString()
+                    });
+                }
+
+                // البحث في الآيات مع تجاهل التشكيل
+                const verseMatches = [];
+                surah.verses.forEach(verse => {
+                    if (normalizeArabic(verse.text).includes(searchTermNorm)) {
+                        verseMatches.push({
+                            verse: verse,
+                            score: 2
+                        });
+                    }
+
+                    // البحث في رقم الآية
+                    if (verse.id.toString().includes(searchTerm)) {
+                        verseMatches.push({
+                            verse: verse,
+                            score: 1
+                        });
+                    }
+                });
+
+                // إضافة النتائج إذا كانت هناك تطابقات
+                if ((currentSearchType === 'all' || currentSearchType === 'surah') && surahMatches.length > 0) {
+                    results.push({
+                        type: 'surah',
+                        surah: surah,
+                        matches: surahMatches,
+                        score: Math.max(...surahMatches.map(m => m.score))
+                    });
+                }
+
+                if ((currentSearchType === 'all' || currentSearchType === 'verse') && verseMatches.length > 0) {
+                    verseMatches.forEach(match => {
+                        results.push({
+                            type: 'verse',
+                            surah: surah,
+                            verse: match.verse,
+                            matches: match.matches || [],
+                            score: match.score
+                        });
+                    });
+                }
+            });
+
+            return sortResults(results);
+        }
+
+        function displayEnhancedSearchResults(results) {
+            if (results.length === 0) {
+                searchResultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 class="no-results-title">لم يتم العثور على نتائج</h3>
+                        <p class="no-results-text">حاول البحث بكلمات أخرى أو تغيير الفلتر</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="search-results-container">';
+
+            // تجميع النتائج حسب السورة
+            const resultsBySurah = {};
+            results.forEach(result => {
+                if (!resultsBySurah[result.surah.id]) {
+                    resultsBySurah[result.surah.id] = [];
+                }
+                resultsBySurah[result.surah.id].push(result);
+            });
+
+            // عرض النتائج
+            Object.keys(resultsBySurah).forEach(surahId => {
+                const surahResults = resultsBySurah[surahId];
+                const surah = surahResults[0].surah;
+
+                // رأس السورة
+                html += `
+                    <div class="result-header">
+                        <div class="result-title">سورة ${surah.name} (${surah.transliteration})</div>
+                        <div class="result-count">${surahResults.length} نتيجة</div>
+                    </div>
+                `;
+
+                // عرض نتائج السورة
+                surahResults.forEach(result => {
+                    if (result.type === 'surah') {
+                        html += `
+                            <div class="surah-result">
+                                <div class="surah-result-content">
+                                    <div class="surah-result-info">
+                                        <div class="surah-result-number">${surah.id}</div>
+                                        <div>
+                                            <div class="surah-result-name">${surah.name}</div>
+                                            <div class="surah-result-details">
+                                                ${surah.transliteration} - ${surah.total_verses} آية
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#surah/${surah.id}" class="nav-btn">عرض السورة</a>
+                                </div>
+                            </div>
+                        `;
+                    } else if (result.type === 'verse') {
+                        const isBookmarked = bookmarks.some(b => b.surahId === surah.id && b.verseId === result.verse.id);
+                        const highlightedText = highlightText(result.verse.text, currentSearchTerm);
+
+                        html += `
+                            <div class="verse-result">
+                                <div class="verse-result-header">
+                                    <div class="verse-result-info">
+                                        <div class="verse-number">${result.verse.id}</div>
+                                        <div class="verse-reference">سورة ${surah.name} - الآية ${result.verse.id}</div>
+                                    </div>
+                                    <div class="verse-actions">
+                                        <button class="verse-btn bookmark-btn" 
+                                                data-surah-id="${surah.id}" 
+                                                data-verse-id="${result.verse.id}"
+                                                title="${isBookmarked ? 'إزالة من العلامات المرجعية' : 'إضافة إلى العلامات المرجعية'}">
+                                            ${isBookmarked ? '🔖' : '📖'}
+                                        </button>
+                                        <a href="#surah/${surah.id}" class="verse-btn" title="عرض السورة">📄</a>
+                                    </div>
+                                </div>
+                                <div class="verse-text">${highlightedText}</div>
+                            </div>
+                        `;
+                    }
+                });
+            });
+
+            html += '</div>';
+            searchResultsContainer.innerHTML = html;
+
+            // إضافة مستمعي الأحداث لأزرار العلامات المرجعية
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', toggleBookmark);
+            });
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // ---------- الدوال الأساسية ----------
+        // تهيئة التطبيق
+        function initApp() {
+            // تعيين السنة الحالية
+            currentYearEl.textContent = new Date().getFullYear();
+            
+            // تحميل بيانات القرآن
+            fetchQuranData();
+            
+            // إعداد مستمعي الأحداث
+            setupEventListeners();
+            
+            // تحميل العلامات المرجعية
+            loadBookmarks();
+            
+            // إعداد البحث الفوري
+            setupInstantSearch();
+        }
+
+        // جلب بيانات القرآن
+        async function fetchQuranData() {
+            try {
+                const response = await fetch('quran.json');
+                if (!response.ok) throw new Error('خطأ في تحميل بيانات القرآن');
+                
+                quranData = await response.json();
+                filteredSurahs = [...quranData];
+                
+                updateTotalCounts();
+                renderSurahGrid(filteredSurahs);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                surahGridContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">⚠️</div>
+                        <h3 class="no-results-title">خطأ في تحميل البيانات</h3>
+                        <p class="no-results-text">${error.message}. تأكد من وجود ملف quran.json في نفس المجلد</p>
+                    </div>
+                `;
+            }
+        }
+
+        // تحديث العداد الإجمالي
+        function updateTotalCounts() {
+            const totalVerses = quranData.reduce((sum, surah) => sum + surah.total_verses, 0);
+            totalVersesEl.textContent = totalVerses.toLocaleString('ar-EG');
+            totalSurahsEl.textContent = quranData.length;
+        }
+
+        // عرض شبكة السور
+        function renderSurahGrid(surahs) {
+            if (surahs.length === 0) {
+                surahGridContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 class="no-results-title">لم يتم العثور على نتائج</h3>
+                        <p class="no-results-text">حاول البحث بكلمات أخرى أو تغيير الفلتر</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="surah-grid">';
+            
+            surahs.forEach(surah => {
+                const typeClass = surah.type === 'meccan' ? 'type-meccan' : 'type-medinan';
+                const typeText = surah.type === 'meccan' ? 'مكية' : 'مدنية';
+                
+                html += `
+                    <a href="#surah/${surah.id}" class="surah-card" data-surah-id="${surah.id}">
+                        <div class="surah-content">
+                            <div class="surah-number">${surah.id}</div>
+                            <h3 class="surah-name">${surah.name}</h3>
+                            <p class="surah-transliteration">${surah.transliteration}</p>
+                            <div class="surah-meta">
+                                <span class="surah-type ${typeClass}">${typeText}</span>
+                                <span>${surah.total_verses} آية</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            });
+            
+            html += '</div>';
+            surahGridContainer.innerHTML = html;
+        }
+
+        // البحث المتقدم في القرآن
+        function performSearch() {
+            const searchTerm = searchInput.value.trim();
+            currentSearchTerm = searchTerm;
+            currentSearchType = searchTypeSelect.value;
+            currentSurahType = surahTypeSelect.value;
+            currentSortOrder = sortOrderSelect.value;
+            
+            if (!searchTerm) {
+                // إذا كان البحث فارغًا، إخفاء نتائج البحث وعرض جميع السور
+                searchResultsContainer.style.display = 'none';
+                searchResultsInfo.style.display = 'none';
+                applyFiltersToSurahs();
+                return;
+            }
+            
+            // البحث المحسن في القرآن
+            searchResults = performAdvancedSearch(searchTerm);
+            
+            // عرض نتائج البحث المحسنة
+            displayEnhancedSearchResults(searchResults);
+            
+            // إخفاء شبكة السور الأصلية
+            surahGridContainer.style.display = 'none';
+            searchResultsContainer.style.display = 'block';
+            
+            // تحديث معلومات النتائج
+            updateSearchStats(searchResults.length);
+        }
+
+        // ترتيب النتائج
+        function sortResults(results) {
+            switch (currentSortOrder) {
+                case 'surah-asc':
+                    return results.sort((a, b) => {
+                        if (a.surah.id !== b.surah.id) return a.surah.id - b.surah.id;
+                        if (a.type === 'verse' && b.type === 'verse') return a.verse.id - b.verse.id;
+                        return a.type === 'surah' ? -1 : 1;
+                    });
+                    
+                case 'surah-desc':
+                    return results.sort((a, b) => {
+                        if (a.surah.id !== b.surah.id) return b.surah.id - a.surah.id;
+                        if (a.type === 'verse' && b.type === 'verse') return b.verse.id - a.verse.id;
+                        return a.type === 'surah' ? -1 : 1;
+                    });
+                    
+                case 'relevance':
+                default:
+                    return results.sort((a, b) => b.score - a.score);
+            }
+        }
+
+        // تحديث إحصائيات البحث
+        function updateSearchStats(count) {
+            resultsCount.textContent = count;
+            searchResultsInfo.style.display = 'flex';
+        }
+
+        // تطبيق الفلاتر على السور
+        function applyFiltersToSurahs() {
+            let filtered = quranData;
+            
+            // تطبيق فلتر نوع السورة
+            if (currentSurahType !== 'all') {
+                filtered = filtered.filter(surah => surah.type === currentSurahType);
+            }
+            
+            // تطبيق البحث إذا كان هناك مصطلح بحث
+            if (currentSearchTerm) {
+                filtered = filtered.filter(surah => {
+                    return surah.name.includes(currentSearchTerm) || 
+                           surah.transliteration.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                           surah.id.toString().includes(currentSearchTerm);
+                });
+            }
+            
+            // تطبيق الترتيب
+            if (currentSortOrder === 'surah-asc') {
+                filtered.sort((a, b) => a.id - b.id);
+            } else if (currentSortOrder === 'surah-desc') {
+                filtered.sort((a, b) => b.id - a.id);
+            }
+            
+            filteredSurahs = filtered;
+            
+            // إظهار شبكة السور مع إخفاء نتائج البحث
+            surahGridContainer.style.display = 'block';
+            searchResultsContainer.style.display = 'none';
+            searchResultsInfo.style.display = 'none';
+            
+            renderSurahGrid(filteredSurahs);
+        }
+
+        // مسح البحث
+        function clearSearch() {
+            searchInput.value = '';
+            currentSearchTerm = '';
+            searchTypeSelect.value = 'all';
+            surahTypeSelect.value = 'all';
+            sortOrderSelect.value = 'relevance';
+            
+            searchResultsContainer.style.display = 'none';
+            searchResultsInfo.style.display = 'none';
+            surahGridContainer.style.display = 'block';
+            
+            applyFiltersToSurahs();
+        }
+
+        // عرض صفحة السورة
+        function renderSurahPage(surahId) {
+            const surah = quranData.find(s => s.id === parseInt(surahId));
+            if (!surah) {
+                showPage('home');
+                return;
+            }
+            
+            const typeClass = surah.type === 'meccan' ? 'type-meccan' : 'type-medinan';
+            const typeText = surah.type === 'meccan' ? 'مكية' : 'مدنية';
+            
+            // تجهيز الآيات
+            let versesHtml = '';
+            surah.verses.forEach(verse => {
+                const isBookmarked = bookmarks.some(b => b.surahId === surah.id && b.verseId === verse.id);
+                
+                versesHtml += `
+                    <div class="verse-item" id="verse-${verse.id}" data-verse-id="${verse.id}">
+                        <div class="verse-header">
+                            <div class="verse-number">${verse.id}</div>
+                            <div class="verse-actions">
+                                <button class="verse-btn bookmark-btn" 
+                                        data-surah-id="${surah.id}" 
+                                        data-verse-id="${verse.id}"
+                                        title="${isBookmarked ? 'إزالة من العلامات المرجعية' : 'إضافة إلى العلامات المرجعية'}">
+                                    ${isBookmarked ? '🔖' : '📖'}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="verse-text">${verse.text}</div>
+                    </div>
+                `;
+            });
+            
+            // تجهيز صفحة السورة
+            const surahPageHtml = `
+                <div class="surah-detail-header">
+                    <div class="surah-header-content">
+                        <div class="surah-detail-number">${surah.id}</div>
+                        <h1 class="surah-detail-name">${surah.name}</h1>
+                        <p class="surah-detail-transliteration">${surah.transliteration}</p>
+                        <div class="surah-detail-meta">
+                            <div class="meta-item">
+                                <span class="meta-value">${surah.total_verses}</span>
+                                <span class="meta-label">عدد الآيات</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-value ${typeClass}">${typeText}</span>
+                                <span class="meta-label">نوع السورة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="surah-navigation">
+                    ${surah.id > 1 ? `
+                        <a href="#surah/${surah.id - 1}" class="nav-link">
+                            <span>←</span>
+                            <span>السورة السابقة</span>
+                        </a>
+                    ` : '<span></span>'}
+                    
+                    <a href="#home" class="nav-link">
+                        <span>🏠</span>
+                        <span>العودة للقائمة</span>
+                    </a>
+                    
+                    ${surah.id < quranData.length ? `
+                        <a href="#surah/${surah.id + 1}" class="nav-link">
+                            <span>السورة التالية</span>
+                            <span>→</span>
+                        </a>
+                    ` : '<span></span>'}
+                </div>
+                
+                <div class="verses-container">
+                    ${versesHtml}
+                </div>
+                
+                <div class="surah-navigation">
+                    ${surah.id > 1 ? `
+                        <a href="#surah/${surah.id - 1}" class="nav-link">
+                            <span>←</span>
+                            <span>السورة السابقة</span>
+                        </a>
+                    ` : '<span></span>'}
+                    
+                    <a href="#home" class="nav-link">
+                        <span>🏠</span>
+                        <span>العودة للقائمة</span>
+                    </a>
+                    
+                    ${surah.id < quranData.length ? `
+                        <a href="#surah/${surah.id + 1}" class="nav-link">
+                            <span>السورة التالية</span>
+                            <span>→</span>
+                        </a>
+                    ` : '<span></span>'}
+                </div>
+            `;
+            
+            // إضافة أنماط CSS للعناصر الجديدة
+            const style = document.createElement('style');
+            style.textContent = `
+                .verse-item { padding: 2rem; border-bottom: 1px solid var(--border-color); }
+                .verse-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+                .verses-container { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+                .surah-navigation { display: flex; justify-content: space-between; margin: 2.5rem 0; padding: 1.5rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow); }
+                .nav-link { padding: 0.8rem 1.5rem; background: var(--primary-color); color: white; text-decoration: none; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 0.5rem; transition: var(--transition); font-weight: 500; }
+                .nav-link:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+                .surah-detail-header { background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; padding: 2.5rem 2rem; border-radius: var(--radius); margin-bottom: 2.5rem; position: relative; overflow: hidden; }
+                .surah-detail-header::before { content: '﷽'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8rem; opacity: 0.1; color: white; }
+                .surah-header-content { position: relative; z-index: 2; text-align: center; }
+                .surah-detail-number { background: var(--secondary-color); color: #333; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 700; margin: 0 auto 1.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+                .surah-detail-name { font-size: 2.5rem; margin-bottom: 0.5rem; font-family: 'Amiri', serif; }
+                .surah-detail-transliteration { font-size: 1.3rem; opacity: 0.9; margin-bottom: 1.5rem; }
+                .surah-detail-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+                .meta-item { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+                .meta-value { font-size: 1.2rem; font-weight: 700; }
+                .meta-label { font-size: 0.9rem; opacity: 0.8; }
+            `;
+            
+            pages.surah.innerHTML = surahPageHtml;
+            pages.surah.appendChild(style);
+            showPage('surah');
+            
+            // إضافة مستمعي الأحداث لأزرار العلامات المرجعية
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', toggleBookmark);
+            });
+        }
+
+        // تبديل العلامات المرجعية
+        function toggleBookmark(event) {
+            const btn = event.currentTarget;
+            const surahId = parseInt(btn.dataset.surahId);
+            const verseId = parseInt(btn.dataset.verseId);
+            
+            const index = bookmarks.findIndex(b => b.surahId === surahId && b.verseId === verseId);
+            
+            if (index === -1) {
+                // إضافة علامة مرجعية
+                bookmarks.push({ 
+                    surahId, 
+                    verseId, 
+                    date: new Date().toISOString(),
+                    surahName: quranData.find(s => s.id === surahId)?.name || `سورة ${surahId}`
+                });
+                btn.innerHTML = '🔖';
+                btn.title = 'إزالة من العلامات المرجعية';
+            } else {
+                // إزالة علامة مرجعية
+                bookmarks.splice(index, 1);
+                btn.innerHTML = '📖';
+                btn.title = 'إضافة إلى العلامات المرجعية';
+            }
+            
+            // حفظ في localStorage
+            localStorage.setItem('quranBookmarks', JSON.stringify(bookmarks));
+            
+            // تحديث صفحة العلامات المرجعية إذا كانت نشطة
+            if (pages.bookmarks.classList.contains('active')) {
+                loadBookmarks();
+            }
+        }
+
+        // تحميل العلامات المرجعية
+        function loadBookmarks() {
+            const container = document.getElementById('bookmarks-container');
+            
+            if (bookmarks.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔖</div>
+                        <h3 class="no-results-title">لا توجد علامات مرجعية</h3>
+                        <p class="no-results-text">قم بإضافة آيات إلى العلامات المرجعية عن طريق النقر على زر الإشارة المرجعية بجانب الآية</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="search-results-container">';
+            
+            // تجميع العلامات المرجعية حسب السورة
+            const surahsMap = {};
+            bookmarks.forEach(bookmark => {
+                if (!surahsMap[bookmark.surahId]) {
+                    surahsMap[bookmark.surahId] = {
+                        surah: quranData.find(s => s.id === bookmark.surahId),
+                        verses: []
+                    };
+                }
+                surahsMap[bookmark.surahId].verses.push(bookmark.verseId);
+            });
+            
+            // عرض كل سورة مع آياتها المفضلة
+            Object.keys(surahsMap).forEach(surahId => {
+                const { surah, verses } = surahsMap[surahId];
+                if (!surah) return;
+                
+                verses.sort((a, b) => a - b);
+                const versesText = verses.map(v => `الآية ${v}`).join('، ');
+                
+                html += `
+                    <div class="result-header">
+                        <div class="result-title">سورة ${surah.name} (${surah.transliteration})</div>
+                        <div class="result-count">${verses.length} آية</div>
+                    </div>
+                `;
+                
+                verses.forEach(verseId => {
+                    const verse = surah.verses.find(v => v.id === verseId);
+                    if (!verse) return;
+                    
+                    const isBookmarked = true;
+                    
+                    html += `
+                        <div class="verse-result">
+                            <div class="verse-result-header">
+                                <div class="verse-result-info">
+                                    <div class="verse-number">${verse.id}</div>
+                                    <div class="verse-reference">سورة ${surah.name} - الآية ${verse.id}</div>
+                                </div>
+                                <div class="verse-actions">
+                                    <button class="verse-btn bookmark-btn" 
+                                            data-surah-id="${surah.id}" 
+                                            data-verse-id="${verse.id}"
+                                            title="إزالة من العلامات المرجعية">
+                                        🔖
+                                    </button>
+                                    <a href="#surah/${surah.id}" class="verse-btn" title="عرض السورة">📄</a>
+                                </div>
+                            </div>
+                            <div class="verse-text">${verse.text}</div>
+                        </div>
+                    `;
+                });
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // إضافة مستمعي الأحداث لأزرار العلامات المرجعية
+            container.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', toggleBookmark);
+            });
+        }
+
+        // التحكم في عرض الصفحات
+        function showPage(pageName) {
+            // إخفاء كل الصفحات
+            Object.values(pages).forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إلغاء تنشيط كل أزرار التنقل
+            Object.values(navButtons).forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // عرض الصفحة المطلوبة
+            if (pages[pageName]) {
+                pages[pageName].classList.add('active');
+                if (navButtons[pageName]) {
+                    navButtons[pageName].classList.add('active');
+                }
+            }
+            
+            // التمرير إلى الأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إدارة الروابط (Routing)
+        function handleHashChange() {
+            const hash = window.location.hash;
+            
+            if (!hash || hash === '#home') {
+                showPage('home');
+            } else if (hash.startsWith('#surah/')) {
+                const surahId = hash.split('/')[1];
+                renderSurahPage(surahId);
+            } else if (hash === '#bookmarks') {
+                showPage('bookmarks');
+                loadBookmarks();
+            }
+        }
+
+        // إعداد البحث الفوري
+        function setupInstantSearch() {
+            const debouncedSearch = debounce(performSearch, 300);
+            searchInput.addEventListener('input', debouncedSearch);
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // البحث عند الضغط على زر البحث
+            searchBtn.addEventListener('click', performSearch);
+            
+            // البحث عند الضغط على Enter
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // مسح البحث
+            clearBtn.addEventListener('click', clearSearch);
+            
+            // البحث عند تغيير الفلاتر
+            searchTypeSelect.addEventListener('change', () => {
+                if (currentSearchTerm) performSearch();
+            });
+            
+            surahTypeSelect.addEventListener('change', () => {
+                if (currentSearchTerm) {
+                    performSearch();
+                } else {
+                    applyFiltersToSurahs();
+                }
+            });
+            
+            sortOrderSelect.addEventListener('change', () => {
+                if (currentSearchTerm) {
+                    performSearch();
+                } else {
+                    applyFiltersToSurahs();
+                }
+            });
+            
+            // أزرار التنقل
+            navButtons.home.addEventListener('click', () => {
+                window.location.hash = 'home';
+            });
+            
+            navButtons.bookmarks.addEventListener('click', () => {
+                window.location.hash = 'bookmarks';
+            });
+            
+            // مستمع hashchange للتعامل مع الروابط
+            window.addEventListener('hashchange', handleHashChange);
+            
+            // التعامل مع الروابط عند التحميل الأولي
+            window.addEventListener('load', handleHashChange);
+            
+            // التعامل مع الروابط عند تحميل الصفحة
+            if (window.location.hash) {
+                handleHashChange();
+            }
+        }
+
+        // بدء تشغيل التطبيق
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
